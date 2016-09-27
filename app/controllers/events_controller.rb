@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-
+  before_action :dup_time?, only: [:create, :update]
   # GET /events
   # GET /events.json
   def index
@@ -26,6 +26,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+
     @event = current_user.events.build(event_params)
 
     respond_to do |format|
@@ -71,6 +72,20 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :description, :time_start, :period, :room_id)
+      params.require(:event).permit(:title, :description, :period, :room_id, :date, :time)
+    end
+
+    def dup_time?
+      date = event_params["date"]
+      time = event_params["time"]
+      room_id = event_params["room_id"]
+      @event = Event.find_by(date: date, room_id: room_id)
+      if @event.nil?
+        return
+      end
+      time_end = @event.time + @event.period.hour
+      if time_end.strftime('%R') > time
+        redirect_back(fallback_location: session[:previous], notice: 'Conflict Time!')
+      end
     end
 end
