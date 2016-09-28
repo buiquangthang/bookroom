@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :dup_time?, only: [:create, :update]
   # GET /events
@@ -77,14 +78,17 @@ class EventsController < ApplicationController
 
     def dup_time?
       date = event_params["date"]
-      time = event_params["time"]
+      time = event_params["time(4i)"] + ":" + event_params["time(5i)"]
       room_id = event_params["room_id"]
-      @event = Event.find_by(date: date, room_id: room_id)
-      if @event.nil?
+      @eve = Event.find_by(date: date, room_id: room_id)
+      binding.pry
+      if @eve.nil?
         return
       end
-      time_end = @event.time + @event.period.hour
+      time_end = @eve.time + @eve.period.hour
+      binding.pry
       if time_end.strftime('%R') > time
+        binding.pry
         redirect_back(fallback_location: session[:previous], notice: 'Conflict Time!')
       end
     end

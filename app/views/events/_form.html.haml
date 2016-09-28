@@ -1,0 +1,23 @@
+
+= simple_form_for @event do |f|
+  - if @event.errors.any?
+    #errors
+      %h2
+      = pluralize(@event.errors.count, "errors")
+      prevented this Pic from saving
+      %ul
+        - @event.errors.full_message.each do |msg|
+          %li= msg
+  .form-group
+    = f.input :title, input_html: { class: "form-control" }
+  .form-group
+    = f.input :description, input_html: { class: "form-control" }
+  .form-group
+    = f.input :date,as: :datepicker, input_html: { class: "form-control" }
+  .form-group
+    = f.input :time, input_html: { class: "form-control" }
+  .form-group
+    = f.input :period, input_html: { class: "form-control" }
+  .form-group
+    = f.input :room_id, collection: @rooms, label_method: :name, value_method: :id,label: "Location", include_blank: false, selected: @event.room_id
+  = f.button :submit, class: "btn btn-info"
