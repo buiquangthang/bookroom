@@ -9,15 +9,24 @@
         - @event.errors.full_message.each do |msg|
           %li= msg
   .form-group
-    = f.input :title, input_html: { class: "form-control" }
+    = f.input :title, wrapper: :vertical_input_group do
+      = f.input_field :title, class: "form-control", required: true
+      %span.input-group-addon.danger
+        %span.glyphicon.glyphicon-remove
   .form-group
     = f.input :description, input_html: { class: "form-control" }
   .form-group
-    = f.input :date,as: :string, input_html: { class: "form-control datepicker" }
+    = f.input :date, wrapper: :vertical_input_group do
+      = f.input_field :date,as: :string, class: "form-control datepicker", required: true
+      %span.input-group-addon.danger
+        %span.glyphicon.glyphicon-remove
   .form-group
     = f.input :time, input_html: { class: "form-control" }
   .form-group
-    = f.input :period, input_html: { class: "form-control" }
+    = f.input :period, wrapper: :vertical_input_group do
+      = f.number_field :period, class: "form-control", required: true
+      %span.input-group-addon.danger
+        %span.glyphicon.glyphicon-remove
   .form-group
     = f.input :room_id, collection: @rooms, label_method: :name, value_method: :id,label: "Location", include_blank: false, selected: @event.room_id
   = f.button :submit, class: "btn btn-info"
