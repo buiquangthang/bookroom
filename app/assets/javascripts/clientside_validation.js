@@ -1,4 +1,9 @@
 $(document).ready(function() {
+
+  // Disable input from keyboard
+  $("#event_date").keydown(function(event) {
+    return false;
+  });
   $('.input-group input[required], .input-group textarea[required], .input-group select[required]').on('keyup change', function() {
     var $form = $(this).closest('form'),
     $group = $(this).closest('.input-group'),
@@ -16,8 +21,6 @@ $(document).ready(function() {
       state = $(this).val().length >= $group.data('length') ? true : false;
     }else if ($group.data('validate') == "number") {
       state = !isNaN(parseFloat($(this).val())) && isFinite($(this).val());
-    }else if ($group.data('validate') == "date") {
-
     }
 
     if (state) {
