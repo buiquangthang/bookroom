@@ -11,11 +11,15 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-datepicker
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
 //= require_tree .
 $(document).on("page:load ready", function(){
-    $("input.datepicker").datepicker({"format": "yyyy-mm-dd", "weekStart": 1, "autoclose": true});
+  $("input.datepicker").datepicker({
+    dateFormat: "yy-mm-dd",
+    autoclose: true,
+    minDate: 0, // 0 days offset = today
+  });
 });

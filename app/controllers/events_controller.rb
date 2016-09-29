@@ -81,14 +81,11 @@ class EventsController < ApplicationController
       time = event_params["time(4i)"] + ":" + event_params["time(5i)"]
       room_id = event_params["room_id"]
       @eve = Event.find_by(date: date, room_id: room_id)
-      binding.pry
       if @eve.nil?
         return
       end
       time_end = @eve.time + @eve.period.hour
-      binding.pry
       if time_end.strftime('%R') > time
-        binding.pry
         redirect_back(fallback_location: session[:previous], notice: 'Conflict Time!')
       end
     end
