@@ -11,17 +11,26 @@
 
         <div class="form-group">
           <%= f.label :email %>
-          <%= f.email_field :email, required: true, autofocus: true, class: "form-control" %>
+          <div class="input-group" data-validate="email">
+            <%= f.email_field :email, required: true, autofocus: true, class: "form-control" %>
+            <span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
+          </div>
         </div>
 
         <div class="form-group">
           <%= f.label :password %>
-          <%= f.password_field :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), class: "form-control" %>
+          <div class="input-group" data-validate="length" data-length="8">
+            <%= f.password_field :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), class: "form-control" %>
+            <span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
+          </div>
         </div>
 
         <div class="form-group">
           <%= f.label :password_confirmation %>
-          <%= f.password_field :password_confirmation, required: true, class: "form-control" %>
+          <div class="input-group" data-validate="confirm">
+            <%= f.password_field :password_confirmation, required: true, class: "form-control" %>
+            <span class="input-group-addon danger"><span class="glyphicon glyphicon-remove"></span></span>
+          </div>
         </div>
 
         <div class="form-actions">

@@ -21,6 +21,10 @@ $(document).ready(function() {
       state = $(this).val().length >= $group.data('length') ? true : false;
     }else if ($group.data('validate') == "number") {
       state = !isNaN(parseFloat($(this).val())) && isFinite($(this).val());
+    }else if ($group.data('validate') == "confirm"){
+      var pass = $('#user_password').val();
+      var pass_confirm = $('#user_password_confirmation').val();
+      state = pass == pass_confirm && pass_confirm ? true : false
     }
 
     if (state) {

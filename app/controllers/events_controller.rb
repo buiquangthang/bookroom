@@ -90,7 +90,7 @@ class EventsController < ApplicationController
       end
       time_end = @eve.time + @eve.period.hour
       if time_end.strftime('%R') > time
-        redirect_back(fallback_location: session[:previous], notice: 'Conflict Time!')
+        redirect_back(fallback_location: session[:previous], alert: 'Conflict Time!')
       end
     end
 end

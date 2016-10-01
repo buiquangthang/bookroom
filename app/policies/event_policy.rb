@@ -7,7 +7,6 @@ class EventPolicy
   end
 
   def create?
-    binding.pry
     @current_user.leader?
   end
 

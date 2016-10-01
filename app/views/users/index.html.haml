@@ -1,0 +1,12 @@
+
+.col-md-10.col-md-offset-1
+  .row
+    .panel.panel-default
+      .panel-heading
+        %h1 Create Event
+      .panel-body
+        %table.table.table-hover
+          %tbody
+            -@users.each do |user|
+              %tr
+                =render user

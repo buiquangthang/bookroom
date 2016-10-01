@@ -23,8 +23,10 @@
 
   .container
     -flash.each do |name, msg|
-      =content_tag :div, msg, class: "alert alert-info"
-
+      -if name == "notice"
+        =content_tag :div, msg, class: "alert alert-info"
+      -else
+        =content_tag :div, msg, class: "alert alert-danger"
     =yield
 
 

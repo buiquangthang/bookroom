@@ -112,10 +112,9 @@ SimpleForm.setup do |config|
     b.use :placeholder
     b.use :label, class: 'control-label'
 
-    b.wrapper tag: 'div' do |ba|
-      ba.wrapper tag: 'div', class: 'input-group col-sm-12' do |append|
-        append.use :input, class: 'form-control'
-      end
+    b.wrapper tag: 'div', class: 'input-group' do |ba|
+      ba.use :input, class: 'form-control'
+
       ba.use :error, wrap_with: { tag: 'span', class: 'help-block' }
       ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
     end
