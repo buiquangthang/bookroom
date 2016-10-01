@@ -34,6 +34,11 @@ class EventsController < ApplicationController
     authorize @event
     respond_to do |format|
       if @event.save
+        @recipients = @event.description.split(',')
+        @recipients.each do |recipient|
+          binding.pry
+          UserMailer.new_invite_email(recipient).deliver
+        end
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -49,6 +54,11 @@ class EventsController < ApplicationController
     authorize @event
     respond_to do |format|
       if @event.update(event_params)
+        @recipients = @event.description.split(',')
+        @recipients.each do |recipient|
+          binding.pry
+          UserMailer.new_invite_email(recipient).deliver
+        end
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
@@ -93,4 +103,4 @@ class EventsController < ApplicationController
         redirect_back(fallback_location: session[:previous], alert: 'Conflict Time!')
       end
     end
-end
+  end
