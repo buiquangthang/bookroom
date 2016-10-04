@@ -1,0 +1,28 @@
+= simple_form_for @schedule do |f|
+  - if @schedule.errors.any?
+    #errors
+      %h2
+      = pluralize(@schedule.errors.count, "errors")
+      prevented this Pic from saving
+      %ul
+        - @pic.errors.full_message.each do |msg|
+          %li= msg
+  .form-group
+    = f.input :subject
+  .form-group
+    = f.input :description
+  .form-group.col-md-6
+    = f.input :period_start
+  .form-group.col-md-6
+    = f.input :period_end
+  .form-group
+    = f.input :day_of_week
+  .form-group
+    .col-md-6
+      = f.input :week_start
+    .col-md-6
+      = f.input :week_end
+  .form-group
+    = f.input :year
+
+  = f.button :submit, class: "btn btn-info"

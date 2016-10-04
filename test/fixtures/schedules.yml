@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject: MyString
+  description: MyText
+  period_start: 1
+  period_end: 1
+  day_of_week: 1
+  week_start: 1
+  week_end: 1
+  year: 1
+
+two:
+  subject: MyString
+  description: MyText
+  period_start: 1
+  period_end: 1
+  day_of_week: 1
+  week_start: 1
+  week_end: 1
+  year: 1

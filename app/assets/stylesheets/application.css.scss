@@ -18,6 +18,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+.schedule_period_start, .schedule_week_start {
+  margin-left: -15px;
+}
+
+.schedule_period_end, .schedule_week_end{
+  margin-right: -15px;
+}
 body {
   background: #E9E9E9;
 }
