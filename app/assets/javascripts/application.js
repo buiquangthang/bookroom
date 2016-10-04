@@ -16,10 +16,15 @@
 //= require jquery-ui
 //= require turbolinks
 //= require_tree .
-$(document).on("page:load ready", function(){
-  $("input.datepicker").datepicker({
-    dateFormat: "yy-mm-dd",
-    autoclose: true,
-    minDate: 0, // 0 days offset = today
-  });
-});
+
+
+  function change_period() {
+    var x = document.getElementById("schedule_period_start").value;
+    var elmnt = document.getElementById("schedule_period_end");
+    elmnt.length = 0;
+    elmnt.length = 10-x;
+    for(var i=0; i < elmnt.length; i++)
+    {
+      elmnt.option[i] = i+x;
+    }
+  }
