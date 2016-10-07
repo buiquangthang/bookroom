@@ -18,13 +18,18 @@
 //= require_tree .
 
 
-  function change_period() {
-    var x = document.getElementById("schedule_period_start").value;
-    var elmnt = document.getElementById("schedule_period_end");
-    elmnt.length = 0;
-    elmnt.length = 10-x;
-    for(var i=0; i < elmnt.length; i++)
-    {
-      elmnt.option[i] = i+x;
-    }
+function change_period() {
+  var x = document.getElementById("schedule_period_start").value;
+  var elmnt = document.getElementById("schedule_period_end");
+  // elmnt.length = 0;
+  elmnt.length = 10-x;
+  for(var i=0; i < elmnt.length; i++)
+  {
+    elmnt.options[i].text = parseInt(i)+parseInt(x)+1;
+    elmnt.options[i].value = parseInt(i)+parseInt(x)+1;
   }
+}
+
+function change_week() {
+
+}

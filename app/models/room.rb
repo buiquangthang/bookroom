@@ -1,3 +1,3 @@
 class Room < ApplicationRecord
-  has_many :events
+  has_many :schedules
 end
