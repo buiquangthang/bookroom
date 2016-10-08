@@ -1,2 +1,0 @@
-class Cla < ApplicationRecord
-end

@@ -18,6 +18,8 @@
     = f.input :year, collection: [Time.now.year,Time.now.year+1], selected: Time.now.year
   .form-group
     = f.input :room_id, collection: @rooms, label_method: :name, value_method: :id,label: "Location", include_blank: false, selected: @schedule.room_id
+  .form-group
+    = f.input :course_id, collection: @courses, label_method: :name, value_method: :id,label: "Class", include_blank: false, selected: @schedule.course_id
 
   = f.button :submit, class: "btn btn-info"
 
