@@ -71,5 +71,4 @@ ActiveRecord::Schema.define(version: 20161008050850) do
   add_foreign_key "schedules", "courses"
   add_foreign_key "schedules", "rooms"
   add_foreign_key "schedules", "users"
-  add_foreign_key "users", "courses"
 end

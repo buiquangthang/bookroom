@@ -1,16 +1,16 @@
 class SchedulesController < ApplicationController
   before_action :set_schedule, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :get_rooms_and_course, only: [:new, :edit]
+  before_action :get_rooms_and_course, only: [:new, :edit, :index]
   # GET /schedules
   # GET /schedules.json
   def index
-    # @week = Time.now.strftime("%W")
-    # @day_of_week = Time.now.strftime("%A")
-    # @schedules = Schedule.where(
-    #   "day_of_week = ? AND week_start <= ? AND week_end >= ?",
-    #   @day_of_week, @week, @week).all
-    @schedules = Schedule.all
+    @week = Time.now.strftime("%W")
+    @day_of_week = Time.now.strftime("%u").to_i - 1
+    @schedules = Schedule.where(
+      "day_of_week = ? AND week_start <= ? AND week_end >= ?",
+      @day_of_week, @week, @week).all
+    # @schedules = Schedule.all
   end
 
   # GET /schedules/1
@@ -45,12 +45,13 @@ class SchedulesController < ApplicationController
   # PATCH/PUT /schedules/1
   # PATCH/PUT /schedules/1.json
   def update
-    @schedule = current_user.schedules.build(schedule_params)
+    temp = current_user.schedules.build(schedule_params)
+    temp.id = params[:id]
     authorize @schedule
-    if Schedule.dup_time?(@schedule) || Schedule.dup_class?(@schedule)
+    if Schedule.dup_time?(temp) || Schedule.dup_class?(temp)
       binding.pry
       redirect_back(fallback_location: session[:previous], alert: 'Conflict Time!')
-    elsif @schedule.save
+    elsif @schedule.update(schedule_params)
       redirect_to @schedule, notice: 'Schedule was successfully updated.'
     else
       render 'new'
@@ -81,6 +82,6 @@ class SchedulesController < ApplicationController
 
     def get_rooms_and_course
       @rooms = Room.all
-      @courses = Course.all
+      @courses = Course.order(id: :asc).offset(1)
     end
 end
