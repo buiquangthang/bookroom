@@ -1,0 +1,74 @@
+<% admin = @users.select { |w| w.role == "admin" }%>
+<% teacher = @users.select { |w| w.role == "teacher" }%>
+<% student = @users.select { |w| w.role == "user" && w.course_id != 1}%>
+<% none = @users.select { |w| w.role == "user" && w.course_id == 1}%>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: left;">Manage User</h3>
+                    <span class="pull-right">
+                        <!-- Tabs -->
+                        <ul class="nav panel-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">Admin</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Teacher</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Student</a></li>
+                            <li><a href="#tab4" data-toggle="tab">None</a></li>
+                        </ul>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <% admin.each do |user| %>
+                                        <tr>
+                                            <%= render user %>
+                                        </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="tab2">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <% teacher.each do |user| %>
+                                        <tr>
+                                            <%= render user %>
+                                        </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="tab3">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <% student.each do |user| %>
+                                        <tr>
+                                            <%= render user %>
+                                        </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="tab4">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <% none.each do |user| %>
+                                        <tr>
+                                            <%= render user %>
+                                        </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+

@@ -3,11 +3,18 @@
 </td>
 
 <td>
-  <%= form_for(user) do |f| %>
-    <%= f.select :role, User.roles.keys.map {|role| [role.titleize,role]}, {}, { class: 'form-control' } %>
-    <td>
-      <%= f.submit 'Change Role', class: 'btn btn-primary' %>
-    </td>
+  <%= simple_form_for(user) do |f| %>
+    <% if user.role != "user" %>
+      <%= f.select :role, User.roles.keys.map {|role| [role.titleize,role]}, {}, { class: 'form-control' } %>
+      <td>
+        <%= f.submit 'Change Role', class: 'btn btn-primary' %>
+      </td>
+    <% else %>
+      <%= f.input :course_id, collection: @courses, label: false, value_method: :id, include_blank: false, selected: user.course_id %>
+      <td>
+        <%= f.submit 'Change Class', class: 'btn btn-primary' %>
+      </td>
+    <% end %>
   <% end %>
 </td>
 

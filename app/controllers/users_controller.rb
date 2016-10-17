@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   after_action :verify_authorized
   def index
     @users = User.all
+    @courses = Course.all
     authorize User
   end
 
@@ -44,6 +45,6 @@ class UsersController < ApplicationController
   private
 
   def secure_params
-    params.require(:user).permit(:role)
+    params.require(:user).permit(:role, :course_id)
   end
 end
