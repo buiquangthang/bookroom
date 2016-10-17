@@ -7,7 +7,7 @@ class Schedule < ApplicationRecord
     temp = Schedule.where(room_id: schedule.room_id, day_of_week: schedule.day_of_week, year: schedule.year)
     temp.each do |t|
       next if t.id == schedule.id
-      if (check_condition1(t.period_start, schedule.period_start, t.period_end) || check_condition1(t.period_start, schedule.period_start, t.period_end) || check_condition2(t.period_start, schedule.period_start, schedule.period_end, t.period_end)) && (check_condition1(t.week_start, schedule.week_start, t.week_end) || check_condition1(t.week_start, schedule.week_start, t.week_end) || check_condition2(t.week_start, schedule.week_start, schedule.week_end, t.week_end))
+      if (check_condition1(t.period_start, schedule.period_start, t.period_end) || check_condition1(t.period_start, schedule.period_end, t.period_end) || check_condition2(t.period_start, schedule.period_start, schedule.period_end, t.period_end)) && (check_condition1(t.week_start, schedule.week_start, t.week_end) || check_condition1(t.week_start, schedule.week_end, t.week_end) || check_condition2(t.week_start, schedule.week_start, schedule.week_end, t.week_end))
         binding.pry
         return true
       end
@@ -19,7 +19,7 @@ class Schedule < ApplicationRecord
     temp = Schedule.where(course_id: schedule.course_id, day_of_week: schedule.day_of_week, year: schedule.year)
     temp.each do |t|
       next if t.id == schedule.id
-      if (check_condition1(t.period_start, schedule.period_start, t.period_end) || check_condition1(t.period_start, schedule.period_start, t.period_end) || check_condition2(t.period_start, schedule.period_start, schedule.period_end, t.period_end)) && (check_condition1(t.week_start, schedule.week_start, t.week_end) || check_condition1(t.week_start, schedule.week_start, t.week_end) || check_condition2(t.week_start, schedule.week_start, schedule.week_end, t.week_end))
+      if (check_condition1(t.period_start, schedule.period_start, t.period_end) || check_condition1(t.period_start, schedule.period_end, t.period_end) || check_condition2(t.period_start, schedule.period_start, schedule.period_end, t.period_end)) && (check_condition1(t.week_start, schedule.week_start, t.week_end) || check_condition1(t.week_start, schedule.week_end, t.week_end) || check_condition2(t.week_start, schedule.week_start, schedule.week_end, t.week_end))
         binding.pry
         return true
       end
