@@ -1,0 +1,36 @@
+
+<h1>Schedules</h1>
+<div class="container">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Subject</th>
+        <th>Period start</th>
+        <th>Period end</th>
+        <th>Day of week</th>
+        <th>Week start</th>
+        <th>Week end</th>
+        <th>Year</th>
+        <th>Room</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% i = 0 %>
+      <% @schedules.each do |schedule| %>
+      <% days = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] %>
+        <tr>
+          <td><%= i = i+1 %></td>
+          <td><%= schedule.subject %></td>
+          <td><%= schedule.period_start %></td>
+          <td><%= schedule.period_end %></td>
+          <td><%= days[schedule.day_of_week.to_i] %></td>
+          <td><%= schedule.week_start %></td>
+          <td><%= schedule.week_end %></td>
+          <td><%= schedule.year %></td>
+          <td><%= schedule.room.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>

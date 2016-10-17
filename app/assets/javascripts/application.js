@@ -33,3 +33,13 @@ function change_period() {
 function change_week() {
 
 }
+
+
+function saveComment() {
+    var comment = document.getElementById("search").value;
+    if (comment == "") {
+        alert("Please enter a date in first!");
+        return false;
+    }
+    return true;
+}

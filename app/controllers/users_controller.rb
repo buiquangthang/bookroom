@@ -29,6 +29,18 @@ class UsersController < ApplicationController
     end
   end
 
+  def indexteacher
+    user = User.find(params[:id])
+    authorize user
+    @schedules = Schedule.where("user_id = ?", user.id).all
+  end
+
+  def indexuser
+    user = User.find(params[:id])
+    authorize user
+    @schedules = Schedule.where("course_id = ?", user.course_id).all
+  end
+
   private
 
   def secure_params

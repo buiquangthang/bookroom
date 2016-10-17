@@ -5,11 +5,20 @@ class SchedulesController < ApplicationController
   # GET /schedules
   # GET /schedules.json
   def index
-    @week = Time.now.strftime("%W")
-    @day_of_week = Time.now.strftime("%u").to_i - 1
+    if params[:search].nil?
+      @date = Time.now
+      @week = Time.now.strftime("%W")
+      @day_of_week = Time.now.strftime("%u").to_i - 1
+      @year = Time.now.strftime("%Y")
+    else
+      @date = params[:search].to_time
+      @week = @date.strftime("%W")
+      @day_of_week = @date.strftime("%u").to_i - 1
+      @year = @date.strftime("%Y")
+    end
     @schedules = Schedule.where(
-      "day_of_week = ? AND week_start <= ? AND week_end >= ?",
-      @day_of_week, @week, @week).all
+      "day_of_week = ? AND week_start <= ? AND week_end >= ? AND year = ?",
+      @day_of_week, @week, @week, @year).all
     # @schedules = Schedule.all
   end
 

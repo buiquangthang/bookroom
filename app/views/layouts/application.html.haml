@@ -1,7 +1,7 @@
 !!! 5
 %html
 %head
-  %title Instagramm
+  %title Book Room
   = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
   = javascript_include_tag 'application', 'data-turbolinks-track' => true
   = csrf_meta_tags
@@ -11,10 +11,23 @@
       .navbar-brand= link_to "BookRoom", root_path
 
       - if user_signed_in?
-        %ul.nav.navbar-nav.navbar-left
-          %li= link_to "Book It!", new_schedule_path
-          %li= link_to "Settings", edit_user_registration_path
-          %li= link_to "Sign Out", destroy_user_session_path, method: :delete
+        - if current_user.role.eql? "teacher"
+          %ul.nav.navbar-nav.navbar-left
+            %li= link_to "Book It!", new_schedule_path
+            %li= link_to "Settings", edit_user_registration_path
+            %li= link_to "Your Schedule", teacher_path(current_user.id)
+            %li= link_to "Sign Out", destroy_user_session_path, method: :delete
+
+        - elsif current_user.role.eql? "admin"
+          %ul.nav.navbar-nav.navbar-left
+            %li= link_to "Settings", edit_user_registration_path
+            %li= link_to "User", users_path
+            %li= link_to "Sign Out", destroy_user_session_path, method: :delete
+        - else
+          %ul.nav.navbar-nav.navbar-left
+            %li= link_to "Settings", edit_user_registration_path
+            %li= link_to "Your Schedule", student_path(current_user.id)
+            %li= link_to "Sign Out", destroy_user_session_path, method: :delete
       - else
         %ul.nav.navbar-nav.navbar-left
           %li= link_to "Join", new_user_registration_path

@@ -1,40 +1,65 @@
+
 <h1>Schedules</h1>
+<h3><%= @date.strftime("%d/%m/%Y") %></h3>
 
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead>
-      <th>Room</th>
-      <% 10.times do |n| %>
-      <th><%= n+1 %></th>
-      <% end %>
-    </thead>
+<script>
+  $( function() {
+    $( "#search" ).datepicker({ dateFormat: 'dd-mm-yy' });
+  });
+</script>
 
-    <tbody>
-      <% @rooms.each do |room|%>
-        <% schedule = @schedules.select { |w| w.room_id == room.id }%>
-        <tr>
-          <td><%= room.name %></td>
-            <% 10.times do |n|%>
-              <% flag = false %>
-              <% schedule.each do |s|%>
-                <% if (n+1) >= s.period_start && (n+1) <= s.period_end %>
-                  <td><%= link_to s.course.name, schedule_path(s.id) %></td>
-                  <% flag = true %>
-                  <% break %>
-                <% end %>
-              <% end %>
-              <% if flag == true %>
-                <% next %>
-              <% else %>
-                <td></td>
-              <% end %>
-            <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+            <form class="input-group custom-search-form" action="/" onSubmit="return saveComment();">
+              <input type="text" class="form-control" id="search" name="search">
+              <span class="input-group-btn">
+              <button class="btn btn-primary" type="submit">
+              <span class="glyphicon glyphicon-search"></span>
+             </button>
+             </span>
+             </form><!-- /input-group -->
+    </div>
+  </div>
 </div>
 
-<br>
+<div class="container">
+  <div class="table-responsive">
+    <table class="table table-hover" id="schedule">
+      <thead>
+        <th>Room</th>
+        <% 10.times do |n| %>
+        <th><%= n+1 %></th>
+        <% end %>
+      </thead>
 
-<%= link_to 'New Schedule', new_schedule_path %>
+      <tbody>
+        <% @rooms.each do |room|%>
+          <% schedule = @schedules.select { |w| w.room_id == room.id }%>
+          <tr>
+            <td class="row_schedule"><%= room.name %></td>
+              <% 10.times do |n|%>
+                <% flag = false %>
+                <% schedule.each do |s|%>
+                  <% if (n+1) >= s.period_start && (n+1) <= s.period_end %>
+                    <td class="row_schedule"><%= link_to s.course.name, schedule_path(s.id) %></td>
+                    <% flag = true %>
+                    <% break %>
+                  <% end %>
+                <% end %>
+                <% if flag == true %>
+                  <% next %>
+                <% else %>
+                  <td class="row_schedule"></td>
+                <% end %>
+              <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <br>
+
+  <%= link_to 'New Schedule', new_schedule_path %>
+</div>

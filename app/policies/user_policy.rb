@@ -22,4 +22,12 @@ class UserPolicy
     return false if @current_user == @user
     @current_user.admin?
   end
+
+  def indexteacher?
+    @current_user.teacher? || @current_user.admin?
+  end
+
+  def indexuser?
+    @current_user.user? || @current_user.admin?
+  end
 end
